@@ -1,0 +1,23 @@
+
+car that is being observed is considered a hazard when its centroid is at:
+
+* X < 10m (considering the “base_link”). 
+* |Y| < 5m (considering the “base_link”)
+
+warning sign:
+	image of the left camera of the car; 
+	green bounding boxes for objects that are detected but do not danger
+	single  red bounding box  for the car that constitutes an  hazard  with textual indication about their coordinates (X,Y, Z) on top of the bounding box (position (X, Y, Z) of the car relative to the self-driving car should be presented according to the “base_link”)
+	the depth map of the car at the front must be projected inside the red bounding box as a heat map.
+	
+
+Topico: /objects/left/bounding_boxes
+	msg: darknet_ros_msgs/BoundingBoxes -> Bounding box + probabilidade + class
+
+	/objects/left/found_object -> diz quantos objetos estão na imagem (pode ou não ser importante)
+
+	/objects/left/detection_image -> aparece sempre a primeira imagem aka acho que é inutil
+
+Camera info:
+	height:964
+	width:1292
