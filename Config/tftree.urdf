@@ -1,0 +1,66 @@
+<robot name="crob_robot">
+
+  <link name="base_link" />
+  <link name="imu" />
+  <link name="gps" />
+  <link name="rtk_base_link" />
+
+  <link name="left_camera" />
+  <link name="right_camera" />
+  <link name="vision_frame" />
+  <link name="sensor_frame" />
+
+  <link name="velodyne" />
+
+  <joint name="joint_base_linkToImu" type="fixed">
+    	<parent link="base_link"/>
+    	<child link="imu"/>
+    	<origin xyz="-0.048 0.063 -0.04" rpy="0 0 -1.57079" />
+  </joint>
+
+  <joint name="joint_Base_linkToGPS" type="fixed">
+   	<parent link="base_link"/>
+     	<child link="gps"/>
+   	<origin xyz="0.19 0.135 0.94" rpy="0 0 0" />
+  </joint>
+
+  <joint name="joint_rtkToBase_link" type="fixed">
+    	<parent link="rtk_base_link"/>
+    	<child link="base_link"/>
+   	<origin xyz="-0.19 -0.135 -0.94" rpy="0 0 0" />
+  </joint>
+
+  <joint name="joint_Base_linkToVelodyne" type="fixed">
+    	<parent link="base_link"/>
+    	<child link="velodyne"/>
+    	<origin xyz="-0.015 0.03 0.4" rpy="0 0 0" />
+  </joint>
+
+
+  <joint name="joint_VelodyneToSensorframe" type="fixed">
+    	<parent link="velodyne"/>
+    	<child link="sensor_frame"/>
+    	<origin xyz="-0.0494418  1.665197 -0.237376" rpy="0.012454 -0.023368 0.0228901" />
+  </joint>
+
+  <joint name="joint_DeviceToPixel" type="fixed">
+    	<parent link="sensor_frame"/>
+    	<child link="vision_frame"/>
+    	<origin xyz="0 0 0" rpy="-1.57075 0 -1.57075" />
+  </joint>
+
+
+  <joint name="joint_DeviceToCLeft" type="fixed">
+    	<parent link="vision_frame"/>
+    	<child link="left_camera"/>
+    	<origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+
+  <joint name="joint_DeviceToCRight" type="fixed">
+    	<parent link="vision_frame"/>
+    	<child link="right_camera"/>
+    	<origin xyz="6.1387466666031600e-02 3.3200928222911208e-03 -1.9560599537078601e-03" rpy="0.0167367829 -0.0277977198 -0.008701419" />
+  </joint>
+
+
+</robot>
