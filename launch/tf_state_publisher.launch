@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+
+<!-- Publish the TF Tree -->
+
+<param name="robot_description" textfile="$(find pm_assign2)/Config/tftree.urdf"/>
+<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state">
+<param name="publish_frequency" value="30" />
+<param name="use_tf_static" value ="true" />
+</node>   
+</launch>

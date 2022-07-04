@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+<!-- <arg name="run_detector" default="false" />-->
+<arg name="run_detector" default="true" />
+
+<!-- Bags name -->
+<arg name="path_bag" default="/home/diogo/catkin_ws/Bag/assign2/" />
+<arg name="file_bag" default="coastalloop_carbreak.bag" />
+
+<node ns="/stereo/left" name="image_proc_left" type="image_proc" pkg="image_proc"/>
+<node ns="/stereo/right" name="image_proc_right" type="image_proc" pkg="image_proc"/>
+
+<!-- Change the rate if needed:  -->
+<param name="use_sim_time" value="true"/>
+<node pkg="rosbag" type="play" name="player" args="--clock -r 1.0 -l $(arg path_bag)$(arg file_bag)"/> 
+<!--
+node pkg="rosbag" type="play" name="player" args="- -clock -r 1.0 -l $(arg path_bag)$(arg file_bag)"/>
+-->
+<!-- original 1.0 slow 0.05 -->
+
+<!-- Just to uncompress images-->
+<node name="republish_left"  type="republish" pkg="image_transport" args="compressed in:=/stereo/left/image_raw raw out:=/stereo/left/image_raw" />
+<node name="republish_right" type="republish" pkg="image_transport" args="compressed in:=/stereo/right/image_raw raw out:=/stereo/right/image_raw" />
+
+<!-- Launch detector -->
+<include if="$(arg run_detector)" ns="dark2" file="$(find darknet_ros)/launch/darknet_ros.launch" >
+<arg name="ros_param_file" value="$(find darknet_ros)/config/ros_stereo_left.yaml" />
+</include>
+</launch>
